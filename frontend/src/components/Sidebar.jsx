@@ -20,28 +20,29 @@ import { PiFireLight } from "react-icons/pi";
 import { FaUpload } from "react-icons/fa6"; // Upload icon
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen, darkMode }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.user.currentUser);
-  const userId = currentUser?._id;
+  const navigate = useNavigate(); // Hook for navigation
+  const location = useLocation(); // Hook to get current path
+  const dispatch = useDispatch(); // Redux dispatch
+  const currentUser = useSelector((state) => state.user.currentUser); // Get current user from redux store
+  const userId = currentUser?._id; // User ID from currentUser
 
-  const [userChannel, setUserChannel] = useState(null);
+  const [userChannel, setUserChannel] = useState(null); // Store user's channel info
 
-  // Fetch user channel
+  // Fetch user channel info if logged in
   useEffect(() => {
     const fetchUserChannel = async () => {
       if (!userId) return;
       try {
         const res = await api.get(`/channels/find/${userId}`);
-        setUserChannel(res.data);
+        setUserChannel(res.data); // Set user channel data
       } catch (err) {
-        if (err.response?.status === 404) setUserChannel(null);
+        if (err.response?.status === 404) setUserChannel(null); // No channel found
       }
     };
     fetchUserChannel();
   }, [userId]);
 
+  // Determine active tab based on current URL
   const activeTab = location.pathname.includes("/trending")
     ? "Trending"
     : location.pathname.includes("/subscriptions")
@@ -56,12 +57,14 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, darkMode }) => {
     ? "Music"
     : "Home";
 
+  // Logout function
   const logOut = () => {
-    localStorage.removeItem("currentUser");
-    dispatch(logout());
-    navigate("/signin");
+    localStorage.removeItem("currentUser"); // Remove localStorage user
+    dispatch(logout()); // Dispatch logout redux action
+    navigate("/signin"); // Redirect to signin page
   };
 
+  // Navigate to a page and close sidebar
   const goToPage = (path) => {
     navigate(path);
     setSidebarOpen(false);
@@ -123,6 +126,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, darkMode }) => {
               <MdOutlineVideoLibrary /> Your Videos
             </div>
 
+            {/* User Channel & Upload */}
             {currentUser && userChannel ? (
               <>
                 <div
