@@ -1,46 +1,50 @@
 // src/pages/YourVideos.jsx
+// This component displays all videos uploaded by the current user
+// It allows fetching, displaying, and deleting user's own videos
+
 import React, { useEffect, useState } from "react";
-import api from "../axiosInstance";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import "../styles/yourVideos.css";
+import api from "../axiosInstance"; // Axios instance for API calls
+import { useSelector } from "react-redux"; // To get current user from Redux
+import { toast } from "react-toastify"; // For toast notifications
+import "../styles/yourVideos.css"; // Component-specific styles
 
 const YourVideos = () => {
-  const [videos, setVideos] = useState([]);
-  const currentUser = useSelector((state) => state.user.currentUser);
-  const userId = currentUser?._id;
+  const [videos, setVideos] = useState([]); // State to store user's videos
+  const currentUser = useSelector((state) => state.user.currentUser); // Get logged-in user
+  const userId = currentUser?._id; // Extract user ID
 
-  // Fetch user's videos
+  // ------------------- FETCH USER'S VIDEOS -------------------
   const fetchYourVideos = async () => {
     try {
-      const res = await api.get("/videos/your-videos");
-      setVideos(res.data);
+      const res = await api.get("/videos/your-videos"); // API call to get user's videos
+      setVideos(res.data); // Set fetched videos to state
     } catch (err) {
       console.error("Error fetching your videos:", err);
     }
   };
 
+  // Fetch videos when userId is available
   useEffect(() => {
     if (userId) fetchYourVideos();
   }, [userId]);
 
-  // DELETE VIDEO
+  // ------------------- DELETE VIDEO -------------------
   const handleDelete = async (videoId) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this video?"
     );
 
-    if (!confirmDelete) return;
+    if (!confirmDelete) return; // Exit if user cancels
 
     try {
-      await api.delete(`/videos/${videoId}`);
-      toast.success("Video deleted successfully!");
+      await api.delete(`/videos/${videoId}`); // API call to delete video
+      toast.success("Video deleted successfully!"); // Success notification
 
-      // Refresh video list
+      // Refresh video list after deletion
       fetchYourVideos();
     } catch (err) {
       console.error("Delete Error:", err);
-      toast.error("Failed to delete video");
+      toast.error("Failed to delete video"); // Error notification
     }
   };
 
@@ -49,7 +53,7 @@ const YourVideos = () => {
       <h2>Your Uploaded Videos</h2>
 
       {videos.length === 0 ? (
-        <p className="no-videos">You haven't uploaded any videos yet.</p>
+        <p className="no-videos">You haven't uploaded any videos yet.</p> // Message if no videos
       ) : (
         <div className="videos-grid">
           {videos.map((video) => (
@@ -59,10 +63,10 @@ const YourVideos = () => {
                 src={video.thumbnailUrl || "/default-thumbnail.png"}
                 alt={video.title}
                 className="video-thumbnail"
-                onClick={() => (window.location.href = `/video/${video._id}`)}
+                onClick={() => (window.location.href = `/video/${video._id}`)} // Navigate to video page
               />
 
-              {/* Info */}
+              {/* Video Info */}
               <div className="video-info">
                 <h3 className="video-title">{video.title}</h3>
                 <p className="video-channel">{video.channel?.channelName}</p>
@@ -75,7 +79,7 @@ const YourVideos = () => {
               {/* Delete Button */}
               <button
                 className="delete-btn"
-                onClick={() => handleDelete(video._id)}
+                onClick={() => handleDelete(video._id)} // Delete video on click
               >
                 Delete
               </button>
