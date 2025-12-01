@@ -1,3 +1,4 @@
+// src/components/VideoList.jsx
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { toast } from "react-toastify";
@@ -5,15 +6,15 @@ import { useNavigate } from "react-router-dom";
 import "../styles/videoList.css";
 
 const VideoList = () => {
-  const [videos, setVideos] = useState([]);
-  const navigate = useNavigate();
+  const [videos, setVideos] = useState([]); // Store fetched videos
+  const navigate = useNavigate(); // Navigation hook
 
   // Fetch logged-in user's videos
   useEffect(() => {
     const fetchVideos = async () => {
       try {
         const res = await axiosInstance.get("/videos/your-videos");
-        setVideos(res.data);
+        setVideos(res.data); // Update state with fetched videos
       } catch (err) {
         console.error("Fetch error:", err);
         toast.error(err.response?.data?.message || "Error fetching videos");
@@ -36,7 +37,7 @@ const VideoList = () => {
       const res = await axiosInstance.delete(`/videos/${id}`);
       console.log("Delete response:", res.data);
       toast.success(res.data.message);
-      setVideos(videos.filter((video) => video._id !== id));
+      setVideos(videos.filter((video) => video._id !== id)); // Remove deleted video from state
     } catch (err) {
       console.error("Delete error:", err);
       toast.error(err.response?.data?.message || "Error deleting video");
@@ -50,19 +51,23 @@ const VideoList = () => {
       return;
     }
     console.log("Navigating to edit video ID:", id);
-    navigate(`/edit-video/${id}`);
+    navigate(`/edit-video/${id}`); // Navigate to edit page
   };
 
   return (
     <div className="video-list">
       {videos.map((video) => (
         <div key={video._id} className="video-card">
+          {/* Video thumbnail */}
           <img
             src={video.thumbnailUrl.replaceAll("\\", "/")}
             alt={video.title}
             className="video-thumbnail"
           />
+          {/* Video title */}
           <h3 className="video-title">{video.title}</h3>
+
+          {/* Edit and Delete buttons */}
           <div className="video-actions">
             <button className="edit-btn" onClick={() => handleEdit(video._id)}>
               Edit
