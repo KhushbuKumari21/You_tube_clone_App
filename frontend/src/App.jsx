@@ -21,10 +21,14 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import "./styles/App.css";
 
 const AppWrapper = () => {
-  const [darkMode, setDarkMode] = useState(true);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { currentUser } = useSelector((state) => state.user);
-
+  // THEME & SIDEBAR STATE
+  // =====================
+  const [darkMode, setDarkMode] = useState(true);// default dark mode
+  const [sidebarOpen, setSidebarOpen] = useState(false); // sidebar toggle
+  const { currentUser } = useSelector((state) => state.user);// fetch current user from Redux
+ // =====================
+  // DARK/LIGHT MODE TOGGLE
+  // =====================
   useEffect(() => {
     document.body.classList.toggle("dark-mode", darkMode);
     document.body.classList.toggle("light-mode", !darkMode);
@@ -42,7 +46,10 @@ const AppWrapper = () => {
         />
 
         <div className="main">
-          {/* Navbar */}
+          {/* =====================
+              NAVBAR / HEADER
+              ===================== */}
+          
           <Navbar
             darkMode={darkMode}
             setDarkMode={setDarkMode}
@@ -52,7 +59,9 @@ const AppWrapper = () => {
           {/* ROUTES */}
           <div className="wrapper">
             <Routes>
-              {/* PROTECTED ROUTES */}
+                {/* =====================
+                  PROTECTED ROUTES
+                  ===================== */}
               <Route
                 path="/"
                 element={
