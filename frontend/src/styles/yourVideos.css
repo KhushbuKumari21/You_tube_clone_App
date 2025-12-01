@@ -1,0 +1,163 @@
+/* ================================
+   MAIN CONTAINER
+================================ */
+.your-videos-container {
+  padding: 20px;
+  max-width: 1300px;
+  margin: 0 auto;
+  overflow-x: hidden; /* prevent horizontal scroll */
+  box-sizing: border-box;
+}
+
+.your-videos-container h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #111827;
+  font-weight: 700;
+}
+
+/* ================================
+   NO VIDEOS MESSAGE
+================================ */
+.no-videos {
+  font-size: 18px;
+  color: #6b7280;
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* ================================
+   VIDEOS GRID
+================================ */
+.videos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 22px;
+  width: 100%;
+}
+
+/* ================================
+   VIDEO CARD
+================================ */
+.video-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #ffffff;
+  padding: 0;
+  border-radius: 10px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+}
+
+.video-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+/* ================================
+   THUMBNAIL
+================================ */
+.video-thumbnail {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* ================================
+   VIDEO INFO SECTION
+================================ */
+.video-info {
+  padding: 10px 5px;
+}
+
+.video-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.video-channel {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.video-stats {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* ================================
+   DELETE BUTTON
+================================ */
+.delete-btn {
+  margin: 10px 5px 12px 5px;
+  padding: 8px 12px;
+  background-color: #ef4444;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.delete-btn:hover {
+  background-color: #dc2626;
+}
+
+/* ================================
+   TABLET RESPONSIVE (1024px)
+================================ */
+@media (max-width: 1024px) {
+  .videos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
+  }
+
+  .your-videos-container h2 {
+    font-size: 24px;
+  }
+}
+
+/* ================================
+   MOBILE RESPONSIVE (640px)
+================================ */
+@media (max-width: 640px) {
+  .your-videos-container {
+    padding: 12px;
+  }
+
+  .videos-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .video-title {
+    font-size: 14px;
+  }
+
+  .video-channel {
+    font-size: 12px;
+  }
+
+  .video-stats {
+    font-size: 11px;
+  }
+
+  .delete-btn {
+    font-size: 13px;
+    padding: 7px 10px;
+  }
+}

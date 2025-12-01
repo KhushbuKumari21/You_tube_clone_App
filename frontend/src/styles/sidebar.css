@@ -1,0 +1,158 @@
+/* ============================================
+   SIDEBAR CONTAINER (YouTube Style)
+============================================ */
+.sidebar-container {
+  position: fixed;
+  top: 60px; /* header ke neeche */
+  left: 0;
+  width: 240px;
+  height: calc(100vh - 60px);
+  background-color: #fff;
+  color: #0f0f0f;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  border-right: 1px solid #e5e5e5; /* YouTube border */
+  overflow-y: auto;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+/* Dark Mode */
+.sidebar-container.dark {
+  background-color: #181818;
+  color: #ccc;
+  border-right: 1px solid #303030;
+}
+
+/* ============================================
+   SIDEBAR ITEMS
+============================================ */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 24px;
+  cursor: pointer;
+  border-radius: 8px;
+  color: #0f0f0f;
+  transition: background 0.15s ease;
+}
+
+.sidebar-container.dark .sidebar-item {
+  color: #f1f1f1;
+}
+
+/* Hover Effect */
+.sidebar-item:hover {
+  background-color: #f2f2f2;
+}
+.sidebar-container.dark .sidebar-item:hover {
+  background-color: #3a3a3a;
+}
+
+/* Active Item */
+.sidebar-item.active {
+  background-color: #e5e5e5;
+  font-weight: 600;
+}
+.sidebar-container.dark .sidebar-item.active {
+  background-color: #4a4a4a;
+}
+
+/* Icons */
+.sidebar-item svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.sidebar-section-divider {
+  width: 100%;
+  height: 1px;
+  background: #e5e7eb;
+  margin: 8px 0;
+}
+
+.sidebar-container.dark .sidebar-section-divider {
+  background: #333;
+}
+
+
+/* ============================================
+   SECTION DIVIDERS (EXACT YOUTUBE LINE)
+============================================ */
+.sidebar-section-divider {
+  width: 100%;
+  height: 1px;
+  background: #e5e5e5;
+  margin: 10px 0;
+}
+
+.sidebar-container.dark .sidebar-section-divider {
+  background: #303030;
+}
+
+/* ============================================
+   FOOTER LINKS (YouTube Style)
+============================================ */
+.sidebar-footer {
+  padding: 16px 24px;
+  font-size: 13px;
+  color: #606060;
+}
+
+.sidebar-container.dark .sidebar-footer {
+  color: #aaa;
+}
+
+.sidebar-footer a {
+  text-decoration: none;
+  color: inherit;
+  margin-right: 8px;
+}
+.sidebar-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================
+   SCROLLBAR
+============================================ */
+.sidebar-container::-webkit-scrollbar {
+  width: 8px;
+}
+.sidebar-container::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 4px;
+}
+.sidebar-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ============================================
+   RESPONSIVE
+============================================ */
+@media (max-width: 768px) {
+  .sidebar-container {
+    transform: translateX(-250px);
+    width: 240px;
+    z-index: 10000;
+  }
+
+  .sidebar-container.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    z-index: 9999;
+  }
+
+  .sidebar-overlay.show {
+    display: block;
+  }
+}

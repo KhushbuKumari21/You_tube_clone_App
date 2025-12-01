@@ -1,0 +1,213 @@
+/* ======================================
+   GLOBAL & BACKGROUND
+====================================== */
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e3a8a);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden; /* prevents ANY horizontal overflow */
+}
+
+/* Wrap container */
+.auth-container {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow-x: hidden; /* mobile overflow fix */
+}
+
+/* ======================================
+   CARD
+====================================== */
+.auth-box {
+  background: #ffffff;
+  width: 400px;
+  max-width: 95%;
+  border-radius: 22px;
+  padding: 40px 35px;
+  box-sizing: border-box; /* overflow fix */
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.22);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  animation: fadeInUp 0.6s ease forwards;
+  transition: 0.3s ease;
+  overflow: hidden; /* prevents inner overflow */
+}
+
+.auth-box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 25px 75px rgba(0, 0, 0, 0.25);
+}
+
+/* ======================================
+   TITLES
+====================================== */
+.auth-box h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: #1f2937;
+}
+
+/* ======================================
+   LABELS & INPUT FIELDS
+====================================== */
+.auth-box label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #4b5563;
+  margin-bottom: -10px;
+}
+
+.auth-box input {
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  font-size: 15px;
+  outline: none;
+  width: 100%;
+  transition: 0.25s ease;
+  box-sizing: border-box;  /* FIX: input width never breaks */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; /* FIX: long text never overflows */
+}
+
+.auth-box input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.35);
+}
+
+/* ======================================
+   BUTTON
+====================================== */
+.auth-btn {
+  padding: 15px;
+  background: linear-gradient(90deg, #2563eb, #1e40af);
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-top: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.auth-btn:hover {
+  background: linear-gradient(90deg, #1e40af, #1e3a8a);
+  transform: translateY(-3px);
+}
+
+/* ======================================
+   ERROR TEXT
+====================================== */
+.error-msg {
+  color: #dc2626;
+  font-size: 13px;
+  margin-top: -10px;
+  font-weight: 500;
+}
+
+/* ======================================
+   LINKS
+====================================== */
+.auth-link {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.auth-link a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.auth-link a:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+/* ======================================
+   ANIMATION
+====================================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ======================================
+   RESPONSIVE (TABLET)
+====================================== */
+@media (max-width: 768px) {
+  .auth-box {
+    width: 88%;
+    padding: 32px 25px;
+  }
+
+  .auth-box h2 {
+    font-size: 1.8rem;
+  }
+
+  .auth-btn,
+  .auth-box input {
+    font-size: 15px;
+  }
+}
+
+/* ======================================
+   RESPONSIVE (MOBILE)
+====================================== */
+@media (max-width: 480px) {
+  .auth-box {
+    width: 94%;
+    padding: 26px 20px;
+    border-radius: 18px;
+  }
+
+  .auth-box h2 {
+    font-size: 1.55rem;
+  }
+
+  .auth-btn,
+  .auth-box input {
+    font-size: 14px;
+    padding: 12px;
+  }
+}
+
+/* ======================================
+   VERY SMALL DEVICES
+   (Overflow completely fixed)
+====================================== */
+@media (max-width: 360px) {
+  .auth-box {
+    width: 97%;
+    padding: 22px 16px;
+  }
+
+  .auth-box input {
+    font-size: 13.5px;
+    padding: 10px;
+  }
+}

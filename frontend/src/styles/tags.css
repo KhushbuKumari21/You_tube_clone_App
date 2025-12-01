@@ -1,0 +1,68 @@
+/* ==========================================
+   TAGS CONTAINER — FULLY RESPONSIVE FLEX
+========================================== */
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(6px, 1vw, 14px);
+  justify-content: center;
+  padding: clamp(6px, 1.2vw, 16px);
+  margin: 10px 0;
+}
+
+/* ==========================================
+   TAG ITEM — AUTO WIDTH, HEIGHT, FONT SIZE
+========================================== */
+.tag-item {
+  display: inline-block;
+  padding: clamp(6px, 1vw, 12px) clamp(12px, 2vw, 22px);
+  border-radius: 20px;
+
+  /* Auto-scaling font size */
+  font-size: clamp(12px, 1.2vw, 16px);
+
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+
+  /* Smooth animation */
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+  user-select: none;
+}
+
+/* LIGHT MODE */
+.tag-item.light {
+  background-color: #f1f3f4;
+  color: #333;
+}
+.tag-item.light:hover {
+  background-color: #e0e0e0;
+}
+
+/* DARK MODE */
+.tag-item.dark {
+  background-color: #2c2c2c;
+  color: #f5f5f5;
+}
+.tag-item.dark:hover {
+  background-color: #444;
+}
+
+/* ACTIVE TAG */
+.tag-item.active {
+  border: 2px solid #ff0000;
+  background-color: #ffebeb;
+  color: #ff0000;
+}
+
+/* DARK MODE ACTIVE */
+.tag-item.dark.active {
+  border: 2px solid #ff4d4d;
+  background-color: #660000;
+  color: #fff;
+}
+
+/* Hover animation */
+.tag-item:hover {
+  transform: scale(1.05);
+}

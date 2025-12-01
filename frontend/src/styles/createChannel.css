@@ -1,0 +1,125 @@
+/* Main page wrapper */
+.create-channel-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f8f8f8;
+  box-sizing: border-box;
+}
+
+/* Page Title */
+.create-channel-page h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Form Container */
+.create-channel-form {
+  width: 100%;
+  max-width: 600px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-sizing: border-box;
+}
+
+/* Label style */
+.create-channel-form label {
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Input fields */
+.create-channel-form input,
+.create-channel-form textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  outline: none;
+  resize: none;
+  transition: 0.2s ease-in;
+}
+
+.create-channel-form input:focus,
+.create-channel-form textarea:focus {
+  border-color: #065fd4;
+  box-shadow: 0 0 6px rgba(6, 95, 212, 0.3);
+}
+
+/* Textarea height */
+.create-channel-form textarea {
+  height: 110px;
+}
+
+/* Submit Button */
+.create-channel-form button {
+  padding: 12px;
+  width: 100%;
+  background-color: #065fd4;
+  color: white;
+  font-size: 17px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.create-channel-form button:hover {
+  background-color: #054fb3;
+}
+
+.create-channel-form button:disabled {
+  background-color: #7aaef5;
+  cursor: not-allowed;
+}
+
+/* ---------------------------- */
+/* RESPONSIVE DESIGN */
+/* ---------------------------- */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .create-channel-page h2 {
+    font-size: 24px;
+  }
+
+  .create-channel-form {
+    padding: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .create-channel-form {
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  .create-channel-page h2 {
+    font-size: 22px;
+  }
+
+  .create-channel-form label {
+    font-size: 14px;
+  }
+
+  .create-channel-form button {
+    font-size: 16px;
+    padding: 10px;
+  }
+}

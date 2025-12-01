@@ -1,0 +1,171 @@
+/* ============================
+   GLOBAL CONTAINER
+============================ */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f1f3f4;
+  padding: 20px;
+}
+
+/* ============================
+   GOOGLE CARD STYLE
+============================ */
+.google-card {
+  width: 390px; /* desktop perfect size */
+  background: #fff;
+  padding: 35px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  animation: fadeIn 0.4s;
+  text-align: center;
+}
+
+/* ============================
+   TEXT
+============================ */
+.google-title {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #202124;
+}
+
+.google-subtitle {
+  font-size: 15px;
+  color: #5f6368;
+  margin-bottom: 25px;
+}
+
+/* ============================
+   INPUTS
+============================ */
+.google-input {
+  width: 100%;
+  padding: 14px 14px;
+  margin-bottom: 18px;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  font-size: 16px;
+  background: #fff;
+  outline: none;
+  color: #000;
+  box-sizing: border-box; /* overflow fix */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* long email fix */
+}
+
+.google-input:focus {
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+}
+
+/* ============================
+   BUTTON
+============================ */
+.google-btn {
+  width: 100%;
+  padding: 14px;
+  background: #1a73e8;
+  color: white;
+  border: none;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.25s;
+}
+
+.google-btn:hover {
+  background: #1669c1;
+}
+
+/* ============================
+   LINK
+============================ */
+.google-link a {
+  color: #1a73e8;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.google-link a:hover {
+  text-decoration: underline;
+}
+
+/* ============================
+   ANIMATION
+============================ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================
+   RESPONSIVE (TABLET)
+============================ */
+@media screen and (max-width: 768px) {
+  .google-card {
+    width: 92%;
+    padding: 32px 26px;
+  }
+
+  .google-input {
+    font-size: 15px;
+  }
+
+  .google-btn {
+    font-size: 15px;
+  }
+}
+
+/* ============================
+   RESPONSIVE (MOBILE)
+============================ */
+@media screen and (max-width: 480px) {
+  .google-card {
+    width: 94%;
+    padding: 26px 20px;
+  }
+
+  .google-input {
+    padding: 14px;
+    font-size: 15px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .google-btn {
+    padding: 12px;
+    font-size: 15px;
+  }
+}
+
+/* ============================
+   VERY SMALL SCREENS
+============================ */
+@media screen and (max-width: 360px) {
+  .google-card {
+    width: 96%;
+    padding: 22px 18px;
+  }
+
+  .google-title {
+    font-size: 22px;
+  }
+
+  .google-input {
+    font-size: 14px;
+    padding: 12px;
+  }
+}
