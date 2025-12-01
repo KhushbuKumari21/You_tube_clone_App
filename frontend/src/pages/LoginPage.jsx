@@ -1,3 +1,4 @@
+// src/pages/LoginPage.jsx
 import React, { useState } from "react";
 import "../styles/login.css";
 import axiosInstance from "../axiosInstance";
@@ -8,8 +9,11 @@ import { toast, ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const LoginPage = () => {
+  // State for email and password inputs
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
+  // Redux dispatch to update user state
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -17,6 +21,7 @@ const LoginPage = () => {
     e.preventDefault();
 
     // ------------------ VALIDATION ------------------
+    // Check if email or password is empty
     if (!email || !password) {
       toast.error("Email and Password are required!", {
         position: "top-right",
@@ -28,20 +33,23 @@ const LoginPage = () => {
 
     try {
       // ------------------ API CALL ------------------
+      // Send POST request to backend /auth/signin
       const res = await axiosInstance.post("/auth/signin", { email, password });
 
       // ------------------ SAVE TOKEN & USER ------------------
+      // Prepare user data with token
       const userData = {
         ...res.data.user,
         token: res.data.token, // attach token for future requests
       };
 
-      // Save in localStorage for fallback
+      // Save user data in localStorage for persistence
       localStorage.setItem("currentUser", JSON.stringify(userData));
 
-      // Save in Redux
+      // Update Redux state with user info
       dispatch(loginSuccess(userData));
 
+      // Show success message and redirect
       toast.success("Login successful! Redirecting...", {
         position: "top-right",
         autoClose: 1500,
@@ -49,6 +57,7 @@ const LoginPage = () => {
         onClose: () => navigate("/"),
       });
     } catch (err) {
+      // Display error message on failed login
       toast.error(err.response?.data?.message || "Invalid credentials!", {
         position: "top-right",
         autoClose: 2000,
@@ -59,12 +68,14 @@ const LoginPage = () => {
 
   return (
     <div className="auth-container">
+      {/* Toast notifications */}
       <ToastContainer />
 
+      {/* Login form */}
       <form className="google-card" onSubmit={handleLogin}>
         <h1 className="google-title">Sign in</h1>
        
-
+        {/* Email input */}
         <input
           className="google-input"
           type="email"
@@ -74,6 +85,7 @@ const LoginPage = () => {
           required
         />
 
+        {/* Password input */}
         <input
           className="google-input"
           type="password"
@@ -83,10 +95,12 @@ const LoginPage = () => {
           required
         />
 
+        {/* Submit button */}
         <button className="google-btn" type="submit">
           SignIn
         </button>
 
+        {/* Link to sign up page */}
         <p className="google-link">
           <Link to="/signup">Create account</Link>
         </p>
