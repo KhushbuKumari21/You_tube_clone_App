@@ -6,18 +6,20 @@ import "../styles/channelPage.css";
 import { FaBell, FaRegBell } from "react-icons/fa";
 
 const ChannelPage = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // Get channel ID from URL
   const navigate = useNavigate();
 
-  const [channel, setChannel] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [subscribers, setSubscribers] = useState(0);
-  const [subscribed, setSubscribed] = useState(false);
+  const [channel, setChannel] = useState(null); // Store channel details
+  const [loading, setLoading] = useState(true); // Loading state for async fetch
+  const [subscribers, setSubscribers] = useState(0); // Track number of subscribers
+  const [subscribed, setSubscribed] = useState(false); // Track if current user is subscribed
 
+  // Redirect to signin page if user is not logged in
   useEffect(() => {
     if (!localStorage.getItem("token")) navigate("/signin");
   }, [navigate]);
 
+  // Fetch channel data from backend
   useEffect(() => {
     const fetchChannel = async () => {
       try {
@@ -28,6 +30,7 @@ const ChannelPage = () => {
       } catch (err) {
         const status = err.response?.status;
         if (status === 404) {
+          // Redirect to create channel page if channel not found
           navigate("/create-channel");
         } else {
           console.error(err.response?.data);
@@ -38,12 +41,14 @@ const ChannelPage = () => {
     if (id) fetchChannel();
   }, [id, navigate]);
 
+  // Show loading message while fetching data
   if (loading) return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
-  if (!channel) return null;
+  if (!channel) return null; // Render nothing if no channel data
 
+  // Handle subscribing to the channel
   const handleSubscribe = async () => {
-    if (subscribed) return;
-    setSubscribers(subscribers + 1);
+    if (subscribed) return; // Do nothing if already subscribed
+    setSubscribers(subscribers + 1); // Optimistic UI update
     setSubscribed(true);
 
     try {
@@ -60,11 +65,14 @@ const ChannelPage = () => {
 
   return (
     <div className="channel-page">
+      {/* Channel banner */}
       <img
         className="channel-banner"
         src={channel.channelBanner || "/avatars/kkimage.png"}
         alt="Banner"
       />
+
+      {/* Channel header with avatar, name, description, subscribers */}
       <div className="channel-header">
         <div className="channel-header-left">
           <img
@@ -79,15 +87,17 @@ const ChannelPage = () => {
           </div>
         </div>
 
+        {/* Subscribe button with bell icon */}
         <div className="channel-header-right">
           <button className="subscribe-btn" onClick={handleSubscribe}>
             {subscribed ? <FaBell /> : <FaRegBell />} Subscribe
           </button>
 
-          {/** UPLOAD BUTTON REMOVED HERE */}
+          {/** Upload button removed here */}
         </div>
       </div>
 
+      {/* List of channel videos */}
       <h2>Videos</h2>
       <div className="video-list">
         {channel.videos.length === 0 ? (
@@ -101,7 +111,7 @@ const ChannelPage = () => {
                 {video.views} views • {new Date(video.uploadDate).toDateString()}
               </p>
 
-              {/** Delete/Edit Buttons still exist — if you want those removed tell me */}
+              {/* Show edit/delete buttons only if current user is channel owner */}
               {channel.owner._id === localStorage.getItem("userId") && (
                 <div className="video-actions">
                   <Link to={`/edit-video/${video._id}`}>
@@ -116,6 +126,7 @@ const ChannelPage = () => {
                             Authorization: `Bearer ${token}`,
                           },
                         });
+                        // Remove deleted video from local state
                         setChannel({
                           ...channel,
                           videos: channel.videos.filter(
