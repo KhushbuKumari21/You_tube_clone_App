@@ -10,6 +10,7 @@ const Tags = ({ tags = DEFAULT_TAGS, darkMode, activeTag, setActiveTag }) => {
   return (
     <div className="tags-container">
       {tags.map((tag, index) => {
+        // Determine tag name safely
         const tagName =
           typeof tag === "string" ? tag : tag?.name || `tag-${index}`;
         return (
