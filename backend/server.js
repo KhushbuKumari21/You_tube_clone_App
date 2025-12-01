@@ -1,4 +1,4 @@
-// server.js
+//  This is main App of backend server.js
 
 // Import dependencies
 import express from "express";
