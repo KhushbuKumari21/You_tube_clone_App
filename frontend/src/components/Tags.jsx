@@ -4,6 +4,7 @@ import "../styles/tags.css"; // make sure to add the updated CSS
 import { DEFAULT_TAGS } from "../constants";
 
 const Tags = ({ tags = DEFAULT_TAGS, darkMode, activeTag, setActiveTag }) => {
+  // Ensure tags is an array
   if (!Array.isArray(tags)) return null;
 
   return (
@@ -17,7 +18,7 @@ const Tags = ({ tags = DEFAULT_TAGS, darkMode, activeTag, setActiveTag }) => {
             className={`tag-item ${activeTag === tagName ? "active" : ""} ${
               darkMode ? "dark" : "light"
             }`}
-            onClick={() => setActiveTag(tagName)}
+            onClick={() => setActiveTag(tagName)} // Update active tag on click
           >
             {tagName}
           </span>
