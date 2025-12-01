@@ -1,3 +1,4 @@
+// src/pages/VideoPage.jsx
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axiosInstance from "../axiosInstance";
@@ -13,12 +14,12 @@ import {
 
 const VideoPage = () => {
   const { id } = useParams();
-  const [video, setVideo] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [token, setToken] = useState("");
-  const [userId, setUserId] = useState("");
+  const [video, setVideo] = useState(null); // state for video data
+  const [loading, setLoading] = useState(true); // state for loading status
+  const [token, setToken] = useState(""); // state to store JWT token
+  const [userId, setUserId] = useState(""); // state to store user ID
 
-  // Load token & user
+  // Load token & user from localStorage
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -26,7 +27,7 @@ const VideoPage = () => {
     if (storedUser) setUserId(storedUser._id);
   }, []);
 
-  // Fetch video details
+  // Fetch video details from backend
   const fetchVideo = async () => {
     try {
       const res = await axiosInstance.get(`/videos/find/${id}`);
@@ -38,18 +39,19 @@ const VideoPage = () => {
     }
   };
 
-  // Fetch video & increment view count
+  // Fetch video & increment view count on mount
   useEffect(() => {
     const load = async () => {
       await fetchVideo();
       try {
-        await axiosInstance.put(`/videos/views/${id}`);
-        fetchVideo();
+        await axiosInstance.put(`/videos/views/${id}`); // increment views
+        fetchVideo(); // refresh video data
       } catch {}
     };
     load();
   }, [id]);
 
+  // Handle like action
   const handleLike = async () => {
     if (!token) return alert("Please login first");
     await axiosInstance.put(
@@ -57,9 +59,10 @@ const VideoPage = () => {
       {},
       { headers: { Authorization: `Bearer ${token}` } }
     );
-    fetchVideo();
+    fetchVideo(); // refresh video data
   };
 
+  // Handle dislike action
   const handleDislike = async () => {
     if (!token) return alert("Please login first");
     await axiosInstance.put(
@@ -67,12 +70,13 @@ const VideoPage = () => {
       {},
       { headers: { Authorization: `Bearer ${token}` } }
     );
-    fetchVideo();
+    fetchVideo(); // refresh video data
   };
 
   if (loading) return <p className="loading-text">Loading...</p>;
   if (!video) return <p className="loading-text">Video not found</p>;
 
+  // Format upload time
   const uploadTime = video.uploadDate ? format(video.uploadDate) : "Unknown";
   const channelName = video.channel?.channelName || "Unknown Channel";
   const channelAvatar = video.channel?.avatar || "/avatars/kkimage.png";
@@ -91,7 +95,7 @@ const VideoPage = () => {
           {video.views.toLocaleString()} views • {uploadTime}
         </div>
 
-        {/* Like/Dislike */}
+        {/* Like/Dislike Buttons */}
         <div className="video-actions">
           <button onClick={handleLike}>
             {video.likes.includes(userId) ? <AiFillLike /> : <AiOutlineLike />}
@@ -110,13 +114,13 @@ const VideoPage = () => {
         {/* Description */}
         <p className="video-description">{video.description}</p>
 
-        {/* Channel */}
+        {/* Channel Info */}
         <div className="channel-info">
           <img className="channel-avatar" src={channelAvatar} alt="" />
           <strong>{channelName}</strong>
         </div>
 
-        {/* Comments */}
+        {/* Comments Section */}
         <Comments videoId={video._id} token={token} />
       </div>
     </div>
