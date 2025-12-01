@@ -216,7 +216,7 @@ User can update own video
 User can delete own video
 
 📁 **Output Folder**
-C:\Users\Khushbu\Downloads\You_tube_clone-main \_project_org\backend\backend output\OUTPUT
+C:\Users\Khushbu\Downloads\App\backend\backend output\OUTPUT
 
 🔗 **Important Links**
 GitHub Repo
