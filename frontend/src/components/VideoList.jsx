@@ -9,7 +9,7 @@ const VideoList = () => {
   const [videos, setVideos] = useState([]); // Store fetched videos
   const navigate = useNavigate(); // Navigation hook
 
-  // Fetch logged-in user's videos
+  // Fetch logged-in user's videos on component mount
   useEffect(() => {
     const fetchVideos = async () => {
       try {
@@ -23,7 +23,7 @@ const VideoList = () => {
     fetchVideos();
   }, []);
 
-  // Delete video
+  // Delete a video by ID
   const handleDelete = async (id) => {
     if (!id) {
       toast.error("Video ID is undefined");
@@ -44,7 +44,7 @@ const VideoList = () => {
     }
   };
 
-  // Edit video
+  // Navigate to edit page for a video
   const handleEdit = (id) => {
     if (!id) {
       toast.error("Video ID is undefined");
