@@ -221,7 +221,7 @@ C:\Users\Khushbu\Downloads\You_tube_clone-main \_project_org\backend\backend out
 🔗 **Important Links**
 GitHub Repo
 👉 Backend + Frontend:
-https://github.com/KhushbuKumari21/You_tube_clone
+https://github.com/KhushbuKumari21/You_tube_clone_App
 
 Project Explanation Video
 👉 https://drive.google.com/file/d/1IvDO5zuVAoPYbVJrqLFOuFsZgdf5nuUp/view?usp=sharing
