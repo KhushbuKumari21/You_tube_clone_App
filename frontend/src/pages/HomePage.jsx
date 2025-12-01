@@ -30,34 +30,38 @@ const sampleData = [
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const { allVideos } = useSelector((state) => state.videos);
-  const { currentUser } = useSelector((state) => state.user);
+  const { allVideos } = useSelector((state) => state.videos); // Get all videos from redux store
+  const { currentUser } = useSelector((state) => state.user); // Get current logged-in user
 
-  const [activeTag, setActiveTag] = useState("All");
-  const [tags] = useState(DEFAULT_TAGS);
-  const [loading, setLoading] = useState(true);
-  const [err, setErr] = useState("");
+  const [activeTag, setActiveTag] = useState("All"); // Current active filter tag
+  const [tags] = useState(DEFAULT_TAGS); // List of available tags
+  const [loading, setLoading] = useState(true); // Loading state
+  const [err, setErr] = useState(""); // Error message
 
+  // Fetch videos from backend on component mount
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await axiosInstance.get("/videos");
+        const res = await axiosInstance.get("/videos"); // API call to get videos
         const videosArray = Array.isArray(res.data) ? res.data : [res.data];
+        // Dispatch fetched videos to redux store, fallback to sampleData if empty
         dispatch(fetchAllSuccess(videosArray.length ? videosArray : sampleData));
       } catch (error) {
-        setErr("Failed to fetch videos.");
-        dispatch(fetchAllSuccess(sampleData));
+        setErr("Failed to fetch videos."); // Set error if fetch fails
+        dispatch(fetchAllSuccess(sampleData)); // Fallback to sample data
       } finally {
-        setLoading(false);
+        setLoading(false); // Stop loading
       }
     };
     fetchVideos();
   }, [dispatch]);
 
+  // Filter videos based on active tag
   const filteredVideos = allVideos
     .filter((v) => v.channelName || v.channel?.channelName)
     .filter((v) => activeTag === "All" || v.tags?.includes(activeTag));
 
+  // If user is not logged in
   if (!currentUser) {
     return (
       <div className="home-container">
